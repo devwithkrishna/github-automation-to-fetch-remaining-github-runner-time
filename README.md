@@ -11,6 +11,14 @@ This repo uses github rest api to pull billing details for github org and user a
 Later these json files are dropped as an email using sendgrid to ownerof account. Email consists of multiple json atachments
 ```
 
+# Credentials used for authorization
+
+| credential                         | purpose                                                                | check              |
+|------------------------------------|------------------------------------------------------------------------|--------------------|
+| fine grained personal access token | this is used for all purpose like listing repos, github app detailsetc | :heavy_check_mark: |
+| sendgrid api key | this is used for amiling purpose to auth with sendgrid | :heavy_check_mark: |
+
+
 # SendGrid 
 
 ```
