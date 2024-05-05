@@ -28,7 +28,7 @@ attachment.disposition = Disposition('attachment')
 message.attachment = attachment
 try:
     load_dotenv()
-    sendgrid_client = SendGridAPIClient(os.environ.get('SENDGRID-API-KEY'))
+    sendgrid_client = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
     response = sendgrid_client.send(message)
     print(response.status_code)
     print(response.body)

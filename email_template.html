@@ -9,6 +9,13 @@
         <li>GitHub organization: {{ org_name }}</li>
         <li>GitHub User account : {{ username }}</li>
     </p>
+    <p>Below are the files:</p>
+    <ul>
+        {% for filename in json_files %}
+        <li>{{ filename }}</li>
+        {% endfor %}
+    </ul>
+<p><strong>Exploring new horizons - {{ username }} 👨‍💻</strong></p>
 
 </body>
 </html>

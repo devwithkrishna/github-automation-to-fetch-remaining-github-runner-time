@@ -15,9 +15,29 @@ def formatted_datetime():
     # Format date and time as dd:mm:yyyy hh:minur
     formatted_date_time = now.strftime("%d-%m-%Y %H:%M")
     return formatted_date_time
-def send_email_with_sendgrid():
+
+def build_attachments(filepath:str):
+    attachments = []
+    json_files = []
+    for filename in os.listdir(filepath):
+        if filename.endswith(".json"):
+            full_filepath = os.path.join(filepath, filename)
+            with open(full_filepath, 'rb') as f:
+                data = f.read()
+            encoded = base64.b64encode(data).decode()
+            attachment = Attachment()
+            attachment.file_content = FileContent(encoded)
+            attachment.file_type = FileType('application/json')
+            attachment.file_name = FileName(filename)
+            attachments.append(attachment)
+            json_files.append(filename)
+
+    return attachments, json_files
+
+def send_email_with_sendgrid(attachments: None, json_files=None):
     """
     send email using sendgrid.
+    json_files --> list of all json files generated
     :return:
     """
     # Variables for template
@@ -31,27 +51,20 @@ def send_email_with_sendgrid():
     template = env.get_template('email_template.html')
 
     # Render the template with dynamic data
-    html_content = template.render(repo_name=repo_name, org_name=org_name, username=username, date=date)
+    html_content = template.render(repo_name=repo_name, org_name=org_name, username=username, date=date, json_files=json_files)
     message = Mail(
         from_email='krishnadhas@devwithkrishna.in',
         to_emails='krishnadhasnk1997@gmail.com',
-        subject=f'{ org_name } & { username } billing details ',
+        subject=f'{ org_name } & { username } billing details - {date} ',
         html_content= Content("text/html", html_content)
     )
-    file_path = 'org_billing_details.json'
-    with open(file_path, 'rb') as f:
-        data = f.read()
-        f.close()
-    encoded = base64.b64encode(data).decode()
-    attachment = Attachment()
-    attachment.file_content = FileContent(encoded)
-    attachment.file_type = FileType('application/json')
-    attachment.file_name = FileName('org_billing_details.json')
-    attachment.disposition = Disposition('attachment')
-    message.attachment = attachment
+    if attachments:
+        for attachment in attachments:
+            message.add_attachment(attachment)
+
     try:
         load_dotenv()
-        sendgrid_client = SendGridAPIClient(os.environ.get('SENDGRID-API-KEY'))
+        sendgrid_client = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
         response = sendgrid_client.send(message)
         print(response.status_code)
         print(response.body)
@@ -61,7 +74,8 @@ def send_email_with_sendgrid():
 
 def main():
     """ To test the script"""
-    send_email_with_sendgrid()
+    attachments, json_files = build_attachments(filepath='.')
+    send_email_with_sendgrid(attachments=attachments, json_files=json_files)
 
 if __name__ == '__main__':
     main()
