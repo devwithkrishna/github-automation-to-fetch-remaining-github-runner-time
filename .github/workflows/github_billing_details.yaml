@@ -1,0 +1,38 @@
+name: github-automation-to-fetch-remaining-github-runner-time
+on:
+  schedule:
+    - cron: '0 0 * * 0' # weekly once
+  workflow_dispatch:
+    inputs:
+      organization:
+        description: 'GitHub organization name'
+        required: true
+        type: string
+        default: 'devwithkrishna'
+      account_name:
+        description: 'GitHub user account name'
+        default: 'githubofkrishnadhas'
+        type: string
+        required: true
+jobs:
+  github-automation-to-fetch-remaining-github-runner-time:
+    runs-on: ubuntu-latest
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v4
+      - name: set up python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: package installations
+        run: |
+          pip install pipenv
+          pipenv install
+      - name: execute python program
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        run: |
+          pipenv run python3 github_billing.py --organization ${{ inputs.organization }} --account_name ${{ inputs.account_name }}
+      - name: Completed
+        run: |
+          echo "program completed successfully"
