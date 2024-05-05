@@ -29,10 +29,13 @@ jobs:
           pip install pipenv
           pipenv install
       - name: execute python program
+        run: |
+          pipenv run python3 github_billing.py --organization ${{ inputs.organization }} --account_name ${{ inputs.account_name }}
+      - name: send email program
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         run: |
-          pipenv run python3 github_billing.py --organization ${{ inputs.organization }} --account_name ${{ inputs.account_name }}
+          pipenv run python3 send_email_using_sendgrid.py
       - name: Completed
         run: |
           echo "program completed successfully"
