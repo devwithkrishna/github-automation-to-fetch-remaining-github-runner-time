@@ -16,7 +16,8 @@ Later these json files are dropped as an email using sendgrid to ownerof account
 | credential                         | purpose                                                                | check              |
 |------------------------------------|------------------------------------------------------------------------|--------------------|
 | fine grained personal access token | this is used for all purpose like listing repos, github app detailsetc | :heavy_check_mark: |
-| sendgrid api key | this is used for amiling purpose to auth with sendgrid | :heavy_check_mark: |
+| personal access token classic | this is used for api call to add repos to github app                   | :heavy_check_mark: |
+| sendgrid api key | this is used for amiling purpose to auth with user account | :heavy_check_mark: |
 
 
 # SendGrid 

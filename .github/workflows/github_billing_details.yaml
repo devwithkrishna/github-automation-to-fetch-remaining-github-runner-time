@@ -31,6 +31,7 @@ jobs:
       - name: execute python program
         env:
           GH_TOKEN: ${{ secrets.DEVWITHKRISHNA_PERSONAL_ACCESS_TOKEN }}
+          GH_TOKEN_TOKEN: ${{ secrets.GH_TOKEN_TOKEN }}
         run: |
           pipenv run python3 github_billing.py --organization ${{ inputs.organization }} --account_name ${{ inputs.account_name }}
       - name: send email program
