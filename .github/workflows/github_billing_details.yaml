@@ -30,10 +30,12 @@ jobs:
           pipenv install
       - name: execute python program
         env:
+          organization: 'devwithkrishna'
+          account_name: 'githubofkrishnadhas'
           GH_TOKEN: ${{ secrets.DEVWITHKRISHNA_PERSONAL_ACCESS_TOKEN }}
           GH_TOKEN_CLASSIC: ${{ secrets.GH_TOKEN_CLASSIC }}
         run: |
-          pipenv run python3 github_billing.py --organization ${{ inputs.organization }} --account_name ${{ inputs.account_name }}
+          pipenv run python3 github_billing.py --organization ${{ env.organization }} --account_name ${{ env.account_name }}
       - name: send email program
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
