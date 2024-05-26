@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "38584e77f426f42bd4663ccdf3061d6fff388e4185d011bd956477867ef99c6d"
+            "sha256": "781395f16e4c814c96f91be8302e346bbadfd9aa04b50b8613951c8adf79c1eb"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -229,12 +229,12 @@
         },
         "requests": {
             "hashes": [
-                "sha256:58cd2187c01e70e6e26505bca751777aa9f2ee0b7f4300988b709f44e013003f",
-                "sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
+                "sha256:dd951ff5ecf3e3b3aa26b40703ba77495dab41da839ae72ef3c8e5d8e2433289",
+                "sha256:fc06670dd0ed212426dfeb94fc1b983d917c4f9847c863f313c9dfaaffb7c23c"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.7'",
-            "version": "==2.31.0"
+            "markers": "python_version >= '3.8'",
+            "version": "==2.32.2"
         },
         "sendgrid": {
             "hashes": [
